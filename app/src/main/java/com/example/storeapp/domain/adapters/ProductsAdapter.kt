@@ -10,9 +10,11 @@ import com.example.storeapp.R
 import com.example.storeapp.domain.models.Product
 import com.squareup.picasso.Picasso
 
-class ProductsAdapter (private val products: List<Product>): RecyclerView.Adapter<ProductsViewHolder>() {
+class ProductsAdapter(
+    private val products: List<Product>
+) : RecyclerView.Adapter<ProductsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item,parent,false)
         return ProductsViewHolder(view)
     }
 
@@ -22,19 +24,20 @@ class ProductsAdapter (private val products: List<Product>): RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
         val product = products[position]
-        holder.titleTV.text = product.computedTitle
+        holder.titleTV.text = product.title
         holder.price.text = product.computedPrice
         holder.ratingTV.text = product.rating.rate.toString()
-        Picasso.get().load(product.image).resize(600, 200).centerInside().into(holder.imageIV)
+        Picasso.get().load(product.image).resize(600,200)
+            .centerInside().into(holder.imageIV)
     }
 }
 
-class ProductsViewHolder (view: View): RecyclerView.ViewHolder(view) {
-    val categoryTV: TextView
-    val price: TextView
-    val imageIV: ImageView
-    val titleTV: TextView
-    val ratingTV: TextView
+class ProductsViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    val categoryTV : TextView
+    val price : TextView
+    val imageIV : ImageView
+    val titleTV : TextView
+    val ratingTV : TextView
 
     init {
         categoryTV = view.findViewById(R.id.productCategory)
