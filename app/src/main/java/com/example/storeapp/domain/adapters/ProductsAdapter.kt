@@ -11,7 +11,8 @@ import com.example.storeapp.domain.models.Product
 import com.squareup.picasso.Picasso
 
 class ProductsAdapter(
-    private val products: List<Product>
+    private val products: List<Product>,
+    val onProductClick: (Product) -> Unit
 ) : RecyclerView.Adapter<ProductsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item,parent,false)
@@ -27,8 +28,10 @@ class ProductsAdapter(
         holder.titleTV.text = product.title
         holder.price.text = product.computedPrice
         holder.ratingTV.text = product.rating.rate.toString()
-        Picasso.get().load(product.image).resize(600,200)
-            .centerInside().into(holder.imageIV)
+        Picasso.get().load(product.image).resize(600,200).centerInside().into(holder.imageIV)
+        holder.itemView.setOnClickListener {
+            onProductClick(product)
+        }
     }
 }
 
